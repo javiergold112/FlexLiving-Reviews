@@ -1,11 +1,13 @@
-type ListReviewsResponse = {
-  status: 'success';
-  data: {
-    reviews: any[];
-    total: number;
-    pages: number;
-  };
-};
+export interface Review {
+  id: string;
+  propertyId: string;
+  propertyName: string;
+  guestName: string;
+  publicReview: string;
+  rating: number;
+  createdAt: string;
+  updatedAt: string;
+}
 
 type AnalyticsResponse = {
   status: 'success';
@@ -30,8 +32,12 @@ async function http<T>(path: string, init?: RequestInit): Promise<T> {
 }
 
 export const api = {
-  listReviews: (params: Record<string, any> = {}) =>
-    http<ListReviewsResponse>(`/reviews${buildQuery(params)}`),
+  listReviews: (params: Record<string, any> = {}) => {
+    const qs = new URLSearchParams(params as any).toString();
+    return http<{ status: string; data: Review[]; meta: { page: number; limit: number; total: number; pages: number } }>(
+      `/reviews?${qs}`
+    );
+  },
 
   analytics: (params: Record<string, any> = {}) =>
     http<AnalyticsResponse>(`/reviews/analytics${buildQuery(params)}`),
