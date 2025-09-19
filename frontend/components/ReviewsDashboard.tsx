@@ -19,7 +19,7 @@ export default function ReviewsDashboard() {
         api.listReviews(filters as any),
         api.analytics(filters as any),
       ]);
-      setReviews(r.data ?? []);
+      setReviews(r.data.reviews ?? []);
       setAnalytics(a.data ?? {});
     } finally { setLoading(false); }
   };

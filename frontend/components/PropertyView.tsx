@@ -9,7 +9,7 @@ export default function PropertyView({ property, onBack }: { property: any; onBa
 
   const load = async () => {
     const res = await api.listReviews({ propertyId: property.propertyId, approved: 'true', displayOnWebsite: 'true', limit: 100 });
-    setReviews(res.data ?? []);
+    setReviews(res.data.reviews ?? []);
   };
 
   return (
