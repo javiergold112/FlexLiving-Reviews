@@ -1,0 +1,20 @@
+export type ReviewDTO = {
+  id: string;
+  sourceId: string;
+  source: string;
+  propertyId: string;
+  propertyName: string;
+  guestName: string;
+  rating: number;
+  publicReview: string;
+  privateNotes?: string | null;
+  reviewCategories: { category: string; rating: number }[];
+  channel: string;
+  reviewType: string;
+  submittedAt: string;
+  status: string;
+  approved: boolean;
+  displayOnWebsite: boolean;
+  createdAt: string;
+  updatedAt: string;
+};

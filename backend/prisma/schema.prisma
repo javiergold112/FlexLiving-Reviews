@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite" // swap to postgresql in prod
+  url      = env("DATABASE_URL")
+}
+
+model Review {
+  id               String   @id @default(cuid())
+  sourceId         String
+  source           String
+  propertyId       String
+  propertyName     String
+  guestName        String
+  rating           Int
+  publicReview     String
+  privateNotes     String?
+  reviewCategories String
+  channel          String
+  reviewType       String
+  submittedAt      DateTime
+  status           String
+  approved         Boolean  @default(false)
+  displayOnWebsite Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@unique([sourceId, source])
+  @@index([propertyId])
+  @@index([channel])
+  @@index([rating])
+  @@index([approved])
+  @@index([displayOnWebsite])
+  @@index([submittedAt])
+}
